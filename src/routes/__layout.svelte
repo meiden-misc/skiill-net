@@ -16,28 +16,24 @@
     Subtitle,
   } from "@smui/drawer";
   import List, { Item, Text, Graphic, Separator, Subheader } from "@smui/list";
+  import { ThemeManager } from "../theme/theme";
+  import { currentRouteId, routeId } from "../store";
+  import { Router, Link, Route } from "svelte-routing";
 
   let open = true;
-
-  function switchTheme() {
-    lightTheme = !lightTheme;
-    let themeLink = document.head.querySelector<HTMLLinkElement>("#theme");
-    if (!themeLink) {
-      themeLink = document.createElement("link");
-      themeLink.rel = "stylesheet";
-      themeLink.id = "theme";
-    }
-    themeLink.href = `/smui${lightTheme ? "" : "-dark"}.css`;
-    document.head
-      .querySelector<HTMLLinkElement>('link[href$="/smui-dark.css"]')
-      ?.insertAdjacentElement("afterend", themeLink);
-  }
-
-  let lightTheme =
-    typeof window === "undefined" ||
-    window.matchMedia("(prefers-color-scheme: light)").matches;
-
   let topAppBar: TopAppBarComponentDev;
+  let theme = new ThemeManager();
+  let isLightModeStr = theme.isLight ? "Dark" : "Light";
+
+  let currentRouteIdSnap = "home";
+
+  currentRouteId.subscribe((value) => {
+    currentRouteIdSnap = value;
+  });
+
+  function setActive(route: string): void {
+    currentRouteId.set(route);
+  }
 </script>
 
 <TopAppBar bind:this={topAppBar} variant="fixed">
@@ -49,8 +45,8 @@
       <Title><strong>スキールネット</strong></Title>
     </Section>
     <Section align="end" toolbar>
-      <Button on:click={switchTheme}>
-        <Label>{lightTheme ? "Dark" : "Light"}</Label>
+      <Button on:click={theme.toggleTheme}>
+        <Label>{isLightModeStr}</Label>
       </Button>
     </Section>
   </Row>
@@ -65,23 +61,47 @@
       </Header>
       <Content>
         <List>
-          <Item activated>
+          <Item
+            href="javascript:void(0)"
+            on:click={() => setActive(routeId.HOME)}
+            activated={currentRouteIdSnap === routeId.HOME}
+          >
             <Graphic class="material-icons" aria-hidden="true">home</Graphic>
             <Text>ホーム</Text>
           </Item>
-          <Item>
+          <Item
+            href="javascript:void(0)"
+            on:click={() => setActive(routeId.RECRUIT)}
+            activated={currentRouteIdSnap === routeId.RECRUIT}
+          >
             <Graphic class="material-icons" aria-hidden="true"
               >rocket_launch</Graphic
             >
-            <Text>発見</Text>
+            <Text>求人</Text>
           </Item>
-          <Item>
+          <Item
+            href="javascript:void(0)"
+            on:click={() => setActive(routeId.INFO)}
+            activated={currentRouteIdSnap === routeId.INFO}
+          >
             <Graphic class="material-icons" aria-hidden="true"
               >emoji_people</Graphic
             >
-            <Text>求人</Text>
+            <Text>案内</Text>
           </Item>
-          <Item>
+          <Item
+            href="javascript:void(0)"
+            on:click={() => setActive(routeId.ACCOUNT)}
+            activated={currentRouteIdSnap === routeId.ACCOUNT}
+          >
+            <Graphic class="material-icons" aria-hidden="true">badge</Graphic>
+            <Text>アカウント</Text>
+          </Item>
+          <Item
+            href="javascript:void(0)"
+            on:click={() => setActive(routeId.OTHER)}
+            activated={currentRouteIdSnap === routeId.OTHER}
+          >
             <Graphic class="material-icons-outlined" aria-hidden="true"
               >info</Graphic
             >
@@ -103,7 +123,7 @@
   .drawer-container {
     position: relative;
     display: flex;
-    height: 94vh;
+    height: 90vh;
     min-width: max-content;
     overflow: hidden;
     z-index: 0;

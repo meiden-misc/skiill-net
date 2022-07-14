@@ -15,8 +15,13 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@700;800&display=swap" rel="stylesheet">
 	<!-- SMUI Styles -->
-	<link rel="stylesheet" href="%sveltekit.assets%/smui.css" media="(prefers-color-scheme: light)" />
-	<link rel="stylesheet" href="%sveltekit.assets%/smui-dark.css" media="screen and (prefers-color-scheme: dark)" />
+	<link rel="stylesheet" id="smui" href="%sveltekit.assets%/smui.css" media="(prefers-color-scheme: light)" />
+	<link rel="stylesheet" id="smui" href="%sveltekit.assets%/smui-dark.css"
+		media="screen and (prefers-color-scheme: dark)" />
+	<link rel="stylesheet" id="color" href="%sveltekit.assets%/color-scheme.css"
+		media="(prefers-color-scheme: light)" />
+	<link rel="stylesheet" id="color" href="%sveltekit.assets%/color-scheme-dark.css"
+		media="screen and (prefers-color-scheme: dark)" />
 
 	%sveltekit.head%
 </head>

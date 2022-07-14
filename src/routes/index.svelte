@@ -1,24 +1,17 @@
-<script lang="ts">
-  import Button, { Label } from "@smui/button";
-  import { firestoreStatus } from "../store";
-  import { getStatus } from "../firebase/db_repository";
+<script>
+  import { currentRouteId } from "../store";
+  import { Router, Route } from "svelte-routing";
+  import Home from "./Home.svelte";
+  import Recruit from "./recruit.svelte";
 
-  let status = "";
-
-  firestoreStatus.subscribe((value) => (status = value));
+  let currentRouteIdSnap = "home";
+  currentRouteId.subscribe((value) => (currentRouteIdSnap = value));
 </script>
 
-<div class="main">
-  <p>わああああ</p>
-  <Button on:click={getStatus} variant="raised">
-    <Label>ステータスを取得</Label>
-  </Button>
-  <p>{status}</p>
-</div>
-
-<style>
-  .main {
-    padding: 16px;
-    text-align: center;
-  }
-</style>
+{#if currentRouteIdSnap == "home"}
+  <Home />
+{:else if currentRouteIdSnap == "recruit"}
+  <Recruit />
+{:else}
+  <Home />
+{/if}
