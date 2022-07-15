@@ -18,7 +18,7 @@
   import List, { Item, Text, Graphic, Separator, Subheader } from "@smui/list";
   import { ThemeManager } from "../theme/theme";
   import { currentRouteId, routeId } from "../store";
-  import { Router, Link, Route } from "svelte-routing";
+  import { goto } from "$app/navigation";
 
   let open = true;
   let topAppBar: TopAppBarComponentDev;
@@ -33,6 +33,7 @@
 
   function setActive(route: string): void {
     currentRouteId.set(route);
+    goto(`/${route}`);
   }
 </script>
 
@@ -81,8 +82,8 @@
           </Item>
           <Item
             href="javascript:void(0)"
-            on:click={() => setActive(routeId.INFO)}
-            activated={currentRouteIdSnap === routeId.INFO}
+            on:click={() => setActive(routeId.GUIDE)}
+            activated={currentRouteIdSnap === routeId.GUIDE}
           >
             <Graphic class="material-icons" aria-hidden="true"
               >emoji_people</Graphic
@@ -99,8 +100,8 @@
           </Item>
           <Item
             href="javascript:void(0)"
-            on:click={() => setActive(routeId.OTHER)}
-            activated={currentRouteIdSnap === routeId.OTHER}
+            on:click={() => setActive(routeId.OTHERS)}
+            activated={currentRouteIdSnap === routeId.OTHERS}
           >
             <Graphic class="material-icons-outlined" aria-hidden="true"
               >info</Graphic

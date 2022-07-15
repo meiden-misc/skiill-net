@@ -9,10 +9,10 @@
 </script>
 
 <div class="wide_title">
-  <h1>求人！</h1>
+  <h1>アカウント！</h1>
 </div>
 <div class="main">
-  <p>求人かも～</p>
+  <p>アカウントかも～</p>
   <Button on:click={getStatus} variant="raised">
     <Label>ステータスを取得</Label>
   </Button>

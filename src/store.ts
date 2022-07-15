@@ -4,9 +4,9 @@ import { writable } from "svelte/store";
 const routeId = {
   HOME: "home",
   RECRUIT: "recruit",
-  INFO: "info",
+  GUIDE: "guide",
   ACCOUNT: "account",
-  OTHER: "other",
+  OTHERS: "others",
 } as const;
 
 let scrollId = writable("");

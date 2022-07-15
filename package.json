@@ -38,7 +38,6 @@
 	"type": "module",
 	"dependencies": {
 		"firebase": "^9.8.4",
-		"svelte-routing": "^1.6.0",
 		"svelte-scrollto-element": "^0.7.0"
 	}
 }
