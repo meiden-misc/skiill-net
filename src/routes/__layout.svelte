@@ -1,3 +1,10 @@
+<script context="module">
+  /** @type {import('@sveltejs/kit').Load} */
+  export const load = async ({ url: { pathname } }) => ({
+    props: { pathname },
+  });
+</script>
+
 <script lang="ts">
   import type { TopAppBarComponentDev } from "@smui/top-app-bar";
   import Button, { Label } from "@smui/button";
@@ -17,23 +24,36 @@
   } from "@smui/drawer";
   import List, { Item, Text, Graphic, Separator, Subheader } from "@smui/list";
   import { ThemeManager } from "../theme/theme";
-  import { currentRouteId, routeId } from "../store";
+  import { currentPath, PathId } from "../store";
   import { goto } from "$app/navigation";
+  import { onMount } from "svelte";
+  import PageTransition from "$lib/page-transition.svelte";
 
+  export let pathname = "";
+
+  let currentPathSnap = "";
   let open = true;
   let topAppBar: TopAppBarComponentDev;
   let theme = new ThemeManager();
   let isLightModeStr = theme.isLight ? "Dark" : "Light";
 
-  let currentRouteIdSnap = "home";
+  onMount(() => {
+    currentPath.set(new URL(location.href).pathname);
+    console.log(new URL(location.href).pathname);
+  });
 
-  currentRouteId.subscribe((value) => {
-    currentRouteIdSnap = value;
+  currentPath.subscribe((value) => {
+    currentPathSnap = value;
   });
 
   function setActive(route: string): void {
-    currentRouteId.set(route);
-    goto(`/${route}`);
+    currentPath.set(route);
+    console.log(route);
+    goto(route);
+  }
+
+  function isActived(route: String): boolean {
+    return $currentPath == route;
   }
 </script>
 
@@ -64,16 +84,16 @@
         <List>
           <Item
             href="javascript:void(0)"
-            on:click={() => setActive(routeId.HOME)}
-            activated={currentRouteIdSnap === routeId.HOME}
+            on:click={() => setActive(PathId.HOME)}
+            activated={$currentPath == PathId.HOME}
           >
             <Graphic class="material-icons" aria-hidden="true">home</Graphic>
             <Text>ホーム</Text>
           </Item>
           <Item
             href="javascript:void(0)"
-            on:click={() => setActive(routeId.RECRUIT)}
-            activated={currentRouteIdSnap === routeId.RECRUIT}
+            on:click={() => setActive(PathId.RECRUIT)}
+            activated={$currentPath == PathId.RECRUIT}
           >
             <Graphic class="material-icons" aria-hidden="true"
               >rocket_launch</Graphic
@@ -82,8 +102,8 @@
           </Item>
           <Item
             href="javascript:void(0)"
-            on:click={() => setActive(routeId.GUIDE)}
-            activated={currentRouteIdSnap === routeId.GUIDE}
+            on:click={() => setActive(PathId.GUIDE)}
+            activated={$currentPath == PathId.GUIDE}
           >
             <Graphic class="material-icons" aria-hidden="true"
               >emoji_people</Graphic
@@ -92,16 +112,16 @@
           </Item>
           <Item
             href="javascript:void(0)"
-            on:click={() => setActive(routeId.ACCOUNT)}
-            activated={currentRouteIdSnap === routeId.ACCOUNT}
+            on:click={() => setActive(PathId.ACCOUNT)}
+            activated={$currentPath == PathId.ACCOUNT}
           >
             <Graphic class="material-icons" aria-hidden="true">badge</Graphic>
             <Text>アカウント</Text>
           </Item>
           <Item
             href="javascript:void(0)"
-            on:click={() => setActive(routeId.OTHERS)}
-            activated={currentRouteIdSnap === routeId.OTHERS}
+            on:click={() => setActive(PathId.OTHERS)}
+            activated={$currentPath == PathId.OTHERS}
           >
             <Graphic class="material-icons-outlined" aria-hidden="true"
               >info</Graphic
@@ -114,7 +134,9 @@
 
     <AppContent class="app-content">
       <main class="main-content">
-        <slot />
+        <PageTransition {pathname}>
+          <slot />
+        </PageTransition>
       </main>
     </AppContent>
   </div>
@@ -122,12 +144,9 @@
 
 <style>
   .drawer-container {
-    position: relative;
-    display: flex;
+    position: sticky;
+    top: 100%;
     height: 90vh;
-    min-width: max-content;
-    overflow: hidden;
-    z-index: 0;
   }
 
   * :global(.app-content) {
@@ -139,7 +158,7 @@
 
   .main-content {
     overflow: auto;
-    height: 100%;
+    /* height: 100%; */
     box-sizing: border-box;
   }
 </style>

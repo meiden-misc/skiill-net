@@ -9,7 +9,7 @@
 </script>
 
 <div class="wide_title">
-  <h1>その他！</h1>
+  <h3>その他！</h3>
 </div>
 <div class="main">
   <p>その他かも～</p>
@@ -20,7 +20,7 @@
 </div>
 
 <style>
-  h1 {
+  h3 {
     padding: 0px;
     padding-top: 70px;
     margin: 0px;
