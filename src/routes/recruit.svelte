@@ -37,7 +37,7 @@
     margin: 0px;
     text-align: center;
     height: 200px;
-    background-color: var(--m3-primary-container);
+    background-color: var(--m3-inverse-primary);
   }
 
   .main {

@@ -80,7 +80,7 @@
       </Header>
       <div class="progress">
         {#if $isLoading}
-          <LinearProgress indeterminate />
+          <LinearProgress class="progress-bar" indeterminate />
         {/if}
       </div>
 
@@ -146,7 +146,7 @@
   </div>
 </AutoAdjust>
 
-<style>
+<style lang="scss">
   .drawer-container {
     position: sticky;
     top: 100%;

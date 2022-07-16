@@ -1,12 +1,24 @@
-// Import the typography styles.
-//
-// MDC Typography
-//
 @use "@material/typography/mdc-typography";
 @use "@material/typography/index" as typography;
+@use "@material/linear-progress/index" as linear-progress;
+
+@font-face {
+  font-family: "M PLUS 1p";
+  src: url("/fonts/mplus-1p-medium.ttf") format("truetype"),
+    url("/fonts/mplus-1p-heavy.ttf") format("truetype");
+}
 
 :root {
-  --mdc-typography-font-family: "M PLUS 1";
+  --mdc-typography-font-family: "M PLUS 1p";
+}
+
+.progress-bar {
+  @include linear-progress.bar-color(var(--m3-primary));
+  @include linear-progress.buffer-color(transparent);
+}
+
+.container {
+  padding: 30px;
 }
 
 html,
@@ -15,27 +27,20 @@ body {
   margin: 0;
 }
 
-.container {
-  padding: 30px;
-}
-
 html {
   @include typography.typography("body1");
 }
 
 h1 {
   @include typography.typography("headline1");
-  font-family: "M PLUS 1p";
 }
 
 h2 {
   @include typography.typography("headline2");
-  font-family: "M PLUS 1p";
 }
 
 h3 {
   @include typography.typography("headline3");
-  font-family: "M PLUS 1p";
 }
 
 h4 {

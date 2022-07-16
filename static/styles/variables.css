@@ -1,4 +1,6 @@
 :root {
+  --mdc-theme-surface: #dde0ff;
+
   --m3-primary: #4355b9;
   --m3-on-primary: #ffffff;
   --m3-primary-container: #dde0ff;

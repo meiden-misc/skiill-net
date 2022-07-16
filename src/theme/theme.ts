@@ -19,13 +19,15 @@ class ThemeManager {
       colorLink.id = "color";
     }
 
-    smuiLink.href = `/smui${this.isLight ? "" : "-dark"}.css`;
-    colorLink.href = `/variables${this.isLight ? "" : "-dark"}.css`;
+    smuiLink.href = `/styles/smui${this.isLight ? "" : "-dark"}.css`;
+    colorLink.href = `/styles/variables${this.isLight ? "" : "-dark"}.css`;
     document.head
-      .querySelector<HTMLLinkElement>('link[href$="/smui-dark.css"]')
+      .querySelector<HTMLLinkElement>('link[href$="/styles/smui-dark.css"]')
       ?.insertAdjacentElement("afterend", smuiLink);
     document.head
-      .querySelector<HTMLLinkElement>('link[href$="/variables-dark.css"]')
+      .querySelector<HTMLLinkElement>(
+        'link[href$="/styles/variables-dark.css"]'
+      )
       ?.insertAdjacentElement("afterend", colorLink);
   }
 }
