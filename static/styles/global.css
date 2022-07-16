@@ -1,0 +1,14 @@
+h3 {
+  font-weight: 800;
+  color: var(--m3-on-primary-container);
+}
+.wide_title {
+  padding: 30px;
+  text-align: center;
+  background-color: var(--m3-inverse-primary);
+}
+
+.main {
+  padding: 16px;
+  text-align: center;
+}

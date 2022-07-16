@@ -21,6 +21,7 @@
     Title as DrawerTitle,
     Header,
     Subtitle,
+    Scrim,
   } from "@smui/drawer";
   import List, { Item, Text, Graphic, Separator, Subheader } from "@smui/list";
   import { ThemeManager } from "../theme/theme";
@@ -32,26 +33,33 @@
 
   export let pathname = "";
 
-  let currentPathSnap = "";
-  let open = true;
+  let open = false;
+  let isLandscapeSnap = false;
   let topAppBar: TopAppBarComponentDev;
   let theme = new ThemeManager();
   let isLightModeStr = theme.isLight ? "Dark" : "Light";
 
   onMount(() => {
+    open = isLandscape();
+    isLandscapeSnap = isLandscape();
     currentPath.set(new URL(location.href).pathname);
     console.log(new URL(location.href).pathname);
   });
 
-  currentPath.subscribe((value) => {
-    currentPathSnap = value;
-  });
-
-  function setActive(route: string): void {
+  async function setActive(route: string) {
     isLoading.set(true);
     currentPath.set(route);
-    console.log(route);
+    open = !isLandscapeSnap ? false : true;
+    await new Promise((resolve) => setTimeout(resolve, 1500)); // for debugging
     goto(route);
+  }
+
+  function isLandscape(): boolean {
+    if (!navigator.userAgent.match(/iPhone|Android.+Mobile/)) {
+      return true;
+    } else {
+      return false;
+    }
   }
 </script>
 
@@ -69,20 +77,34 @@
       </Button>
     </Section>
   </Row>
+  {#if !isLandscapeSnap}
+    <div class="progress-mobile">
+      {#if $isLoading}
+        <LinearProgress class="progress-bar-mobile" indeterminate />
+      {/if}
+    </div>
+  {/if}
 </TopAppBar>
 
 <AutoAdjust {topAppBar}>
   <div class="drawer-container">
-    <Drawer variant="dismissible" bind:open style="padding: 10px;">
+    <Drawer
+      variant="modal"
+      bind:open
+      style="padding: 10px;"
+      fixed={isLandscapeSnap}
+    >
       <Header>
         <DrawerTitle><strong>スキールネット</strong></DrawerTitle>
         <Subtitle>校内のスキル共有ネットワーク</Subtitle>
       </Header>
-      <div class="progress">
-        {#if $isLoading}
-          <LinearProgress class="progress-bar" indeterminate />
-        {/if}
-      </div>
+      {#if isLandscapeSnap}
+        <div class="progress">
+          {#if $isLoading}
+            <LinearProgress class="progress-bar" indeterminate />
+          {/if}
+        </div>
+      {/if}
 
       <Content>
         <List>
@@ -136,6 +158,9 @@
       </Content>
     </Drawer>
 
+    {#if !isLandscapeSnap}
+      <Scrim fixed={false} />
+    {/if}
     <AppContent class="app-content">
       <main class="main-content">
         <PageTransition {pathname}>
@@ -147,12 +172,6 @@
 </AutoAdjust>
 
 <style lang="scss">
-  .drawer-container {
-    position: sticky;
-    top: 100%;
-    height: 90vh;
-  }
-
   * :global(.app-content) {
     flex: auto;
     overflow: auto;
@@ -162,12 +181,15 @@
 
   .main-content {
     overflow: auto;
-    /* height: 100%; */
     box-sizing: border-box;
   }
 
   .progress {
-    padding-top: 10px;
-    min-height: 5px;
+    padding-top: 8px;
+    min-height: 4px;
+  }
+  .progress-mobile {
+    margin-top: -5.5px;
+    min-height: 4px;
   }
 </style>

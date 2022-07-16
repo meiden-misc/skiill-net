@@ -26,21 +26,6 @@
 </div>
 
 <style>
-  h3 {
-    padding: 0px;
-    padding-top: 70px;
-    margin: 0px;
-    font-weight: 800;
-    color: var(--m3-on-primary-container);
-  }
-  .wide_title {
-    padding: 0px;
-    margin: 0px;
-    text-align: center;
-    height: 200px;
-    background-color: var(--m3-inverse-primary);
-  }
-
   .main {
     padding: 16px;
     text-align: center;

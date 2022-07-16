@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Button, { Label } from "@smui/button";
+  import Button, { Icon, Label } from "@smui/button";
   import { getStatus } from "../firebase/db_repository";
   import { firestoreStatus, isLoading } from "../store";
   import { onMount } from "svelte";
@@ -17,6 +17,10 @@
   <h3>スキールネットへようこそ！</h3>
 </div>
 <div class="main">
+  <div class="test">
+    <div class="material-icons" aria-hidden="true">warning</div>
+    <p>プログレスバーの確認の為に画面遷移時に1.5秒遅延させてます</p>
+  </div>
   <p>
     日頃から、こんなスキルを持った人がいないかな、こんな仲間がいたらなと感じていました。<br
     />
@@ -82,23 +86,12 @@
 </div>
 
 <style>
-  h3 {
-    padding: 0px;
-    padding-top: 70px;
-    margin: 0px;
-    font-weight: 800;
-    color: var(--m3-on-primary-container);
-  }
-  .wide_title {
-    padding: 0px;
-    margin: 0px;
-    text-align: center;
-    height: 200px;
-    background-color: var(--m3-inverse-primary);
-  }
-
-  .main {
-    padding: 16px;
-    text-align: center;
+  .test {
+    padding: 20px;
+    font-size: larger;
+    font-weight: 700;
+    border-radius: 10px;
+    color: var(--m3-on-error);
+    background-color: var(--m3-error);
   }
 </style>
