@@ -12,5 +12,6 @@ const PathId = {
 let scrollId = writable("");
 let firestoreStatus = writable("");
 let currentPath = writable("/home");
+let isLoading = writable(true);
 
-export { scrollId, firestoreStatus, PathId, currentPath };
+export { scrollId, firestoreStatus, PathId, currentPath, isLoading };

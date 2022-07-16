@@ -24,10 +24,11 @@
   } from "@smui/drawer";
   import List, { Item, Text, Graphic, Separator, Subheader } from "@smui/list";
   import { ThemeManager } from "../theme/theme";
-  import { currentPath, PathId } from "../store";
+  import { currentPath, PathId, isLoading } from "../store";
   import { goto } from "$app/navigation";
   import { onMount } from "svelte";
   import PageTransition from "$lib/page-transition.svelte";
+  import LinearProgress from "@smui/linear-progress";
 
   export let pathname = "";
 
@@ -47,13 +48,10 @@
   });
 
   function setActive(route: string): void {
+    isLoading.set(true);
     currentPath.set(route);
     console.log(route);
     goto(route);
-  }
-
-  function isActived(route: String): boolean {
-    return $currentPath == route;
   }
 </script>
 
@@ -133,6 +131,11 @@
     </Drawer>
 
     <AppContent class="app-content">
+      {#if $isLoading}
+        <div class="progress">
+          <LinearProgress indeterminate />
+        </div>
+      {/if}
       <main class="main-content">
         <PageTransition {pathname}>
           <slot />
@@ -160,5 +163,9 @@
     overflow: auto;
     /* height: 100%; */
     box-sizing: border-box;
+  }
+
+  .progress {
+    padding-top: 3px;
   }
 </style>
