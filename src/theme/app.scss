@@ -6,7 +6,7 @@
 @use "@material/typography/index" as typography;
 
 :root {
-  --mdc-typography-font-family: "M PLUS 1p";
+  --mdc-typography-font-family: "M PLUS 1";
 }
 
 html,
@@ -23,71 +23,51 @@ html {
   @include typography.typography("body1");
 }
 
-.mdc-deprecated-list-item__text {
-  transform: rotate(0.03deg);
-}
-
-.mdc-button__label {
-  transform: rotate(0.03deg);
-}
-
-p {
-  transform: rotate(0.03deg);
-}
-
 h1 {
   @include typography.typography("headline1");
-  transform: rotate(0.03deg);
+  font-family: "M PLUS 1p";
 }
 
 h2 {
   @include typography.typography("headline2");
-  transform: rotate(0.03deg);
+  font-family: "M PLUS 1p";
 }
 
 h3 {
   @include typography.typography("headline3");
-  transform: rotate(0.03deg);
+  font-family: "M PLUS 1p";
 }
 
 h4 {
   @include typography.typography("headline4");
-  transform: rotate(0.03deg);
 }
 
 h5 {
   @include typography.typography("headline5");
-  transform: rotate(0.03deg);
 }
 
 h6 {
   @include typography.typography("headline6");
-  transform: rotate(0.03deg);
 }
 
 caption {
   @include typography.typography("caption");
-  transform: rotate(0.03deg);
 }
 
 code,
 pre {
   font-family: "Roboto Mono", monospace;
-  transform: rotate(0.03deg);
 }
 
 small {
   font-size: 0.9em;
-  transform: rotate(0.03deg);
 }
 
 big {
   font-size: 1.1em;
-  transform: rotate(0.03deg);
 }
 
 b,
 strong {
   font-weight: bold;
-  transform: rotate(0.03deg);
 }
