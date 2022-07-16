@@ -78,6 +78,12 @@
         <DrawerTitle><strong>スキールネット</strong></DrawerTitle>
         <Subtitle>校内のスキル共有ネットワーク</Subtitle>
       </Header>
+      <div class="progress">
+        {#if $isLoading}
+          <LinearProgress indeterminate />
+        {/if}
+      </div>
+
       <Content>
         <List>
           <Item
@@ -131,11 +137,6 @@
     </Drawer>
 
     <AppContent class="app-content">
-      {#if $isLoading}
-        <div class="progress">
-          <LinearProgress indeterminate />
-        </div>
-      {/if}
       <main class="main-content">
         <PageTransition {pathname}>
           <slot />
@@ -166,6 +167,7 @@
   }
 
   .progress {
-    padding-top: 3px;
+    padding-top: 10px;
+    min-height: 5px;
   }
 </style>
