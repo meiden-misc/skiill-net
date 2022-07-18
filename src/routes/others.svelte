@@ -1,17 +1,17 @@
 <script lang="ts">
   import Button, { Label } from "@smui/button";
   import { getStatus } from "../firebase/db_repository";
-  import { firestoreStatus, isLoading } from "../store";
+  import { firestoreStatus, isLoading } from "$lib/store";
   import { onMount } from "svelte";
 
   onMount(() => {
-    console.log("hi");
     isLoading.set(false);
   });
 
-  let status = "";
-
-  firestoreStatus.subscribe((value) => (status = value));
+  let statusSnap: String;
+  function getStatusSnap() {
+    getStatus().then((value) => (statusSnap = value.statusStr));
+  }
 </script>
 
 <div class="wide_title">
@@ -19,10 +19,10 @@
 </div>
 <div class="main">
   <p>その他かも～</p>
-  <Button on:click={getStatus} variant="raised">
+  <Button on:click={getStatusSnap} variant="raised">
     <Label>ステータスを取得</Label>
   </Button>
-  <p>{status}</p>
+  <p>{statusSnap}</p>
 </div>
 
 <style>

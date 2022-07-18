@@ -1,6 +1,6 @@
 import { app, db } from "./client";
 import { doc, Firestore, getDoc, Timestamp } from "firebase/firestore";
-import { firestoreStatus, sampleData } from "../store";
+import { firestoreStatus, sampleData } from "$lib/store";
 import { FirebaseError } from "firebase/app";
 import {
   collection,
@@ -12,27 +12,25 @@ import { safe_not_equal } from "svelte/internal";
 
 const TARGET_COLLECTION_NAME = "recruit";
 
-async function getStatus(): Promise<void> {
-  let result = "";
+async function getStatus() {
+  type StatusData = {
+    statusStr: String;
+  };
 
   const docRef = doc(db, "status", "status");
   const docSnap = await getDoc(docRef);
-  const status = docSnap.data();
-
-  if (docSnap.exists()) {
-    result = status as unknown as string;
-  } else {
-    result = "No such document";
-  }
-
-  console.log(result);
-
-  firestoreStatus.set(result);
+  const status = docSnap.data() as StatusData;
+  console.log(status);
+  return status;
 }
 type RecruitData = {
   title: String;
   thumbnail: String;
-  media: Map<String, String>;
+  media1: String;
+  media2: String;
+  media3: String;
+  media4: String;
+  media5: String;
   place: String;
   deadline: Timestamp;
   beginTime: Timestamp;

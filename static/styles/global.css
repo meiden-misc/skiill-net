@@ -16,3 +16,15 @@ h3 {
 .mdc-drawer {
   background-color: var(--m3-back);
 }
+
+.mdc-drawer--modal + .mdc-drawer-scrim {
+  background-color: rgba(0, 0, 0, 0.32);
+}
+
+.mdc-dialog .mdc-dialog__scrim {
+  background-color: rgba(0, 0, 0, 0.32);
+}
+
+.mdc-dialog .mdc-dialog__surface {
+  background-color: var(--m3-back);
+}

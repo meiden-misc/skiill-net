@@ -25,7 +25,7 @@
   } from "@smui/drawer";
   import List, { Item, Text, Graphic, Separator, Subheader } from "@smui/list";
   import { ThemeManager } from "../theme/theme";
-  import { currentPath, PathId, isLoading } from "../store";
+  import { currentPath, PathId, isLoading } from "$lib/store";
   import { goto } from "$app/navigation";
   import { onMount } from "svelte";
   import PageTransition from "$lib/page-transition.svelte";
