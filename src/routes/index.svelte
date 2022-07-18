@@ -1,7 +1,6 @@
 <script lang="ts">
   import Button, { Icon, Label } from "@smui/button";
-  import { getStatus } from "../firebase/db_repository";
-  import { firestoreStatus, isLoading } from "../store";
+  import { firestoreStatus, isLoading, sampleData } from "../store";
   import { onMount } from "svelte";
 
   onMount(() => {
@@ -75,10 +74,10 @@
     そのための最適な解決方法がスキールネットです<br />
   </p>
   <p>ホームかも</p>
-  <Button on:click={getStatus} variant="raised">
+  <Button variant="raised">
     <Label>ステータスを取得</Label>
   </Button>
-  <p>{status}</p>
+  <p>{$sampleData}</p>
 </div>
 
 <style>

@@ -1,6 +1,10 @@
 <script lang="ts">
-  import { firestoreStatus, isLoading } from "../store";
-  import { getStatus } from "../firebase/db_repository";
+  import { firestoreStatus, isLoading, sampleData } from "../store";
+  import {
+    getStatus,
+    getRecruitData,
+    type RecruitData,
+  } from "../firebase/db_repository";
   import { onMount } from "svelte";
   import Card, {
     Content,
@@ -17,13 +21,15 @@
   import Fab, { Label as FabLabel, Icon as FabIcon } from "@smui/fab";
   import { raf } from "svelte/internal";
 
-  onMount(() => {
-    console.log("hi");
+  onMount(() => {});
+
+  let sampleDataSnap: RecruitData[];
+  let sampleDataSnapLength: number = 0;
+  getRecruitData().then((value) => {
+    sampleDataSnap = value;
+    sampleDataSnapLength = value.length;
     isLoading.set(false);
   });
-  let status = "";
-
-  firestoreStatus.subscribe((value) => (status = value));
 </script>
 
 <div class="wide_title">
@@ -31,28 +37,25 @@
 </div>
 <div class="main">
   <Button on:click={getStatus} variant="raised">
-    <Label>ステータスを取得</Label>
+    <Label>サンプルを取得</Label>
   </Button>
-  <p>{status}</p>
   <p>求人かも～</p>
   <LayoutGrid>
-    {#each Array(9) as _unused, i}
+    {#each Array(sampleDataSnapLength) as _unused, i}
       <Cell>
         <div class="card-container">
           <Card>
             <PrimaryAction on:click={() => null}>
               <Media class="card-media-16x9" aspectRatio="16x9" />
               <Content class="mdc-typography--body2">
-                <h2 class="mdc-typography--headline6" style="margin: 0;">
-                  A card with media.
-                </h2>
+                <p style="margin: 0;">{sampleDataSnap[i].title}</p>
                 <h3
                   class="mdc-typography--subtitle2"
                   style="margin: 0 0 10px; color: #888;"
                 >
-                  And a subtitle.
+                  {sampleDataSnap[i].issuer}
                 </h3>
-                It's all in this card. It's a veritable smorgasbord of card features.
+                {sampleDataSnap[i].detail}
               </Content>
             </PrimaryAction>
             <Actions>
