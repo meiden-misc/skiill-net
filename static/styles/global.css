@@ -12,3 +12,7 @@ h3 {
   padding: 16px;
   text-align: center;
 }
+
+.mdc-drawer {
+  background-color: var(--m3-back);
+}

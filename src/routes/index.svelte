@@ -17,10 +17,6 @@
   <h3>スキールネットへようこそ！</h3>
 </div>
 <div class="main">
-  <div class="test">
-    <div class="material-icons" aria-hidden="true">warning</div>
-    <p>プログレスバーの確認の為に画面遷移時に1.5秒遅延させてます</p>
-  </div>
   <p>
     日頃から、こんなスキルを持った人がいないかな、こんな仲間がいたらなと感じていました。<br
     />
@@ -86,12 +82,4 @@
 </div>
 
 <style>
-  .test {
-    padding: 20px;
-    font-size: larger;
-    font-weight: 700;
-    border-radius: 10px;
-    color: var(--m3-on-error);
-    background-color: var(--m3-error);
-  }
 </style>

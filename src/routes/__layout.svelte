@@ -156,6 +156,10 @@
           </Item>
         </List>
       </Content>
+      <div class="test">
+        <div class="material-icons" aria-hidden="true">warning</div>
+        <p>プログレスバーの確認の為に画面遷移時に1.5秒遅延させてます</p>
+      </div>
     </Drawer>
 
     {#if !isLandscapeSnap}
@@ -172,6 +176,14 @@
 </AutoAdjust>
 
 <style lang="scss">
+  .test {
+    padding: 20px;
+    margin-bottom: 65px;
+    border-radius: 10px;
+    color: var(--m3-on-error);
+    background-color: var(--m3-error);
+  }
+
   * :global(.app-content) {
     flex: auto;
     overflow: auto;
