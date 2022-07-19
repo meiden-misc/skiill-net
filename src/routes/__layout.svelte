@@ -50,7 +50,7 @@
     isLoading.set(true);
     currentPath.set(route);
     open = !isLandscapeSnap ? false : true;
-    // await new Promise((resolve) => setTimeout(resolve, 1500)); // for debugging
+    await new Promise((resolve) => setTimeout(resolve, 1500)); // for debugging
     goto(route);
   }
 
@@ -160,10 +160,10 @@
           </Item>
         </List>
       </Content>
-      <!-- <div class="test">
+      <div class="test">
         <div class="material-icons" aria-hidden="true">warning</div>
         <p>プログレスバーの確認の為に画面遷移時に1.5秒遅延させてます</p>
-      </div> -->
+      </div>
     </Drawer>
 
     {#if !isLandscapeSnap}

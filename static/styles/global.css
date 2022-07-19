@@ -28,3 +28,7 @@ h3 {
 .mdc-dialog .mdc-dialog__surface {
   background-color: var(--m3-back);
 }
+
+.mdc-drawer--modal {
+  box-shadow: none;
+}
