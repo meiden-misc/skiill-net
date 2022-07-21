@@ -1,4 +1,4 @@
-<script context="module">
+<script context="module" lang="ts">
   /** @type {import('@sveltejs/kit').Load} */
   export const load = async ({ url: { pathname } }) => ({
     props: { pathname },
@@ -30,6 +30,7 @@
   import { onMount } from "svelte";
   import PageTransition from "$lib/page-transition.svelte";
   import LinearProgress from "@smui/linear-progress";
+  import { isLandscape } from "$lib/device";
 
   export let pathname = "";
 
@@ -52,18 +53,6 @@
     open = !isLandscapeSnap ? false : true;
     await new Promise((resolve) => setTimeout(resolve, 1500)); // for debugging
     goto(route);
-  }
-
-  function isWideWidth(): boolean {
-    return window.innerWidth > 730;
-  }
-
-  function isLandscape(): boolean {
-    if (!navigator.userAgent.match(/iPhone|Android.+Mobile/) && isWideWidth()) {
-      return true;
-    } else {
-      return false;
-    }
   }
 </script>
 
