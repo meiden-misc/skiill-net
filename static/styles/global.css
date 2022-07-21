@@ -32,3 +32,7 @@ h3 {
 .mdc-drawer--modal {
   box-shadow: none;
 }
+
+.mdc-text-field__input {
+  margin-left: 10px;
+}

@@ -19,12 +19,7 @@
   import IconButton, { Icon } from "@smui/icon-button";
   import LayoutGrid, { Cell } from "@smui/layout-grid";
   import Fab, { Label as FabLabel, Icon as FabIcon } from "@smui/fab";
-  import Dialog, {
-    Header as DialogHeader,
-    Title as DialogTitle,
-    Content as DialogContent,
-    Actions as DialogActions,
-  } from "@smui/dialog";
+  import RecruitDialog from "$lib/components/recruit-dialog.svelte";
 
   let dialogOpen = false;
   let recruitDataSnap: RecruitData[];
@@ -108,91 +103,21 @@
     {/each}
   </LayoutGrid>
   <div class="fab">
-    <Fab color="primary" extended on:click={() => (dialogOpen = true)}>
+    <Fab
+      color="primary"
+      extended
+      on:click={() => {
+        dialogOpen = false;
+        dialogOpen = true;
+      }}
+    >
       <FabIcon class="material-icons">add</FabIcon>
       <FabLabel>求人を作成</FabLabel>
     </Fab>
   </div>
 </div>
 
-<Dialog
-  bind:open={dialogOpen}
-  fullscreen
-  aria-labelledby="fullscreen-title"
-  aria-describedby="fullscreen-content"
->
-  <DialogHeader>
-    <DialogTitle id="fullscreen-title">求人の作成</DialogTitle>
-    <IconButton action="close" class="material-icons">close</IconButton>
-  </DialogHeader>
-  <Content id="fullscreen-content">
-    <p>
-      日頃から、こんなスキルを持った人がいないかな、こんな仲間がいたらなと感じていました。<br
-      />
-      そこで、コンピュータの技術を使って、仲間集めが出来ないかと考えました。それがスキールネットです。<br
-      />
-      自分にはないスキルを持った仲間を探すためのサイトを作り、自分で使用するだけではなく、<br
-      />
-      多くの人にもサイトの作り方を資料として公開し、問題の解決に繋げたいと思いました。<br
-      />
-      企業や社会人向けにはスキルのデータベースのようなものがあるかもしれませんが、学生にはないことに疑問を感じていました。<br
-      />
-      だからこそ学生のための学生が必要とする項目を作成し、より目的の人材にたどり着けるように募集設定に工夫をするつもりです。<br
-      />
-      また、部活動や探究活動以外にも、テスト対策など生徒同士で気軽に使用できるようにするつもりです。<br
-      />
-      自ら学びながら、仲間が相互に教え合い、様々なことに取り組むスタイルは、これからの新しい学習方法だと考えます。<br
-      />
-      そのための最適な解決方法がスキールネットです<br />
-    </p>
-    <p>
-      日頃から、こんなスキルを持った人がいないかな、こんな仲間がいたらなと感じていました。<br
-      />
-      そこで、コンピュータの技術を使って、仲間集めが出来ないかと考えました。それがスキールネットです。<br
-      />
-      自分にはないスキルを持った仲間を探すためのサイトを作り、自分で使用するだけではなく、<br
-      />
-      多くの人にもサイトの作り方を資料として公開し、問題の解決に繋げたいと思いました。<br
-      />
-      企業や社会人向けにはスキルのデータベースのようなものがあるかもしれませんが、学生にはないことに疑問を感じていました。<br
-      />
-      だからこそ学生のための学生が必要とする項目を作成し、より目的の人材にたどり着けるように募集設定に工夫をするつもりです。<br
-      />
-      また、部活動や探究活動以外にも、テスト対策など生徒同士で気軽に使用できるようにするつもりです。<br
-      />
-      自ら学びながら、仲間が相互に教え合い、様々なことに取り組むスタイルは、これからの新しい学習方法だと考えます。<br
-      />
-      そのための最適な解決方法がスキールネットです<br />
-    </p>
-    <p>
-      日頃から、こんなスキルを持った人がいないかな、こんな仲間がいたらなと感じていました。<br
-      />
-      そこで、コンピュータの技術を使って、仲間集めが出来ないかと考えました。それがスキールネットです。<br
-      />
-      自分にはないスキルを持った仲間を探すためのサイトを作り、自分で使用するだけではなく、<br
-      />
-      多くの人にもサイトの作り方を資料として公開し、問題の解決に繋げたいと思いました。<br
-      />
-      企業や社会人向けにはスキルのデータベースのようなものがあるかもしれませんが、学生にはないことに疑問を感じていました。<br
-      />
-      だからこそ学生のための学生が必要とする項目を作成し、より目的の人材にたどり着けるように募集設定に工夫をするつもりです。<br
-      />
-      また、部活動や探究活動以外にも、テスト対策など生徒同士で気軽に使用できるようにするつもりです。<br
-      />
-      自ら学びながら、仲間が相互に教え合い、様々なことに取り組むスタイルは、これからの新しい学習方法だと考えます。<br
-      />
-      そのための最適な解決方法がスキールネットです<br />
-    </p>
-  </Content>
-  <Actions>
-    <Button action="reject">
-      <Label>Reject</Label>
-    </Button>
-    <Button action="accept" defaultAction>
-      <Label>Accept</Label>
-    </Button>
-  </Actions>
-</Dialog>
+<RecruitDialog {dialogOpen} />
 
 <style>
   .main {

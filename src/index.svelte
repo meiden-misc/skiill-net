@@ -1,6 +1,5 @@
 <script>
   import Home from "./Home.svelte";
-  import Recruit from "./recruit.svelte";
 </script>
 
 <svelte:head>
