@@ -10,7 +10,7 @@ export default {
       pages: "public",
       assets: "public",
       fallback: "index.html",
-      precompress: false,
+      precompress: true,
     }),
 
     prerender: {
