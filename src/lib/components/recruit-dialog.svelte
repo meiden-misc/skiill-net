@@ -13,6 +13,7 @@
   import { Timestamp } from "firebase/firestore";
 
   export let dialogOpen = false;
+  export const response = "";
   let title = "";
   let place = "";
   let deadTime = Timestamp.now();
@@ -23,6 +24,13 @@
   let recruitmentStatus = "wait";
   let requirements = "";
   let detail = "";
+
+  async function callbackDialog() {
+    console.log("wawa");
+    await new Promise((resolve) => setTimeout(resolve, 300));
+    dialogOpen = false;
+    dialogOpen = true;
+  }
 </script>
 
 <Dialog
@@ -32,7 +40,7 @@
   aria-describedby="fullscreen-content"
 >
   <DialogHeader>
-    <DialogTitle id="fullscreen-title">求人の作成</DialogTitle>
+    <DialogTitle id="fullscreen-title"><strong>求人の作成</strong></DialogTitle>
     <IconButton action="close" class="material-icons">close</IconButton>
   </DialogHeader>
   <DialogContent id="fullscreen-content">
@@ -41,6 +49,8 @@
         label="求人のタイトル"
         bind:value={title}
         input$maxlength={30}
+        style="width: 70%;"
+        helperLine$style="width: 100%;"
         invalid={title.length >= 30}
       >
         <Icon class="material-icons" slot="leadingIcon">dehaze</Icon>
@@ -69,7 +79,7 @@
         input$maxlength={30}
         invalid={title.length >= 30}
       >
-        <Icon class="material-icons" slot="leadingIcon">dehaze</Icon>
+        <Icon class="material-icons" slot="leadingIcon">place</Icon>
         <HelperText slot="helper"
           >募集や活動の場所を入力します<CharacterCounter /></HelperText
         >
@@ -79,6 +89,8 @@
       <Textfield
         textarea
         input$maxlength={100}
+        style="width: 70%; padding-left: 0px;"
+        helperLine$style="width: 100%;"
         bind:value={detail}
         label="詳細"
       >
@@ -89,10 +101,10 @@
   </DialogContent>
   <DialogActions>
     <Button action="reject">
-      <Label>Reject</Label>
+      <Label>キャンセル</Label>
     </Button>
-    <Button action="accept" defaultAction>
-      <Label>Accept</Label>
+    <Button action="accept" defaultAction on:click={callbackDialog}>
+      <Label>次へ</Label>
     </Button>
   </DialogActions>
 </Dialog>

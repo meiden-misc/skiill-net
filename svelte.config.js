@@ -9,8 +9,8 @@ export default {
       // default options are shown
       pages: "public",
       assets: "public",
-      fallback: 'index.html',
-      precompress: true,
+      fallback: "index.html",
+      precompress: false,
     }),
 
     prerender: {
