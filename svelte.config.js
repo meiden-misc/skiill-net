@@ -7,8 +7,8 @@ export default {
   kit: {
     adapter: adapter({
       // default options are shown
-      pages: "public",
-      assets: "public",
+      pages: "build",
+      assets: "build",
       fallback: "index.html",
       precompress: true,
     }),
