@@ -7,7 +7,7 @@ on:
     inputs:
       ref:
         description: branch|tag|SHA to checkout
-        default: 'main'
+        default: "main"
         required: true
 jobs:
   deploy:
@@ -18,8 +18,7 @@ jobs:
           ref: ${{ github.event.inputs.ref }}
       - uses: actions/setup-node@v2
         with:
-          node-version: '15'
-      # 投稿内容を更新するために npm run build:posts を走らせる
+          node-version: "15"
       - name: Recreate all posts
         shell: bash
         run: |
@@ -30,7 +29,7 @@ jobs:
           # GitHub Actions の Secrets で作成した値を参照する形で
           # Vercel デプロイ時に必要となる各種パラメタを設定する
           vercel-token: ${{ secrets.VERCEL_TOKEN }} # Required
-          vercel-args: '--prod' # Optional
-          vercel-org-id: ${{ secrets.ORG_ID}}  #Required
+          vercel-args: "--prod" # Optional
+          vercel-org-id: ${{ secrets.ORG_ID}} #Required
           vercel-project-id: ${{ secrets.PROJECT_ID}} #Required
           working-directory: ./
