@@ -26,6 +26,11 @@
   let recruitDataSnapLength: number = 0;
   let statusSnap: String = "ボタンをクリックしてFireStoreからフェッチ";
 
+  onMount(() => {
+    getRecruitDataSnap();
+    console.log("hey");
+  });
+
   function getRecruitDataSnap() {
     getStatus().then((value) => {
       statusSnap = value.statusStr;

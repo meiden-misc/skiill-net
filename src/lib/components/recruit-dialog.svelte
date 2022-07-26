@@ -11,6 +11,10 @@
   import CharacterCounter from "@smui/textfield/character-counter";
   import HelperText from "@smui/textfield/helper-text";
   import { Timestamp } from "firebase/firestore";
+  import {
+    addRecruitData,
+    type RecruitData,
+  } from "../../firebase/db_repository";
 
   export let dialogOpen = false;
   export const response = "";
@@ -26,10 +30,31 @@
   let detail = "";
 
   async function callbackDialog() {
-    console.log("wawa");
-    await new Promise((resolve) => setTimeout(resolve, 300));
-    dialogOpen = false;
-    dialogOpen = true;
+    let data: RecruitData = {
+      title: title,
+      thumbnail: "",
+      media1: "",
+      media2: "",
+      media3: "",
+      media4: "",
+      media5: "",
+      place: place,
+      deadline: deadTime,
+      beginTime: beginTime,
+      endTime: endTime,
+      issuer: issuer,
+      recruitmentNum: recruitmentNum,
+      recruitStatus: recruitmentStatus,
+      requirements: requirements,
+      detail: detail,
+    };
+
+    addRecruitData(data);
+
+    // console.log("wawa");
+    // await new Promise((resolve) => setTimeout(resolve, 300));
+    // dialogOpen = false;
+    // dialogOpen = true;
   }
 </script>
 

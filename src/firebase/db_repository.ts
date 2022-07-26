@@ -1,16 +1,15 @@
-import { app, db } from "./client";
-import { doc, Firestore, getDoc, Timestamp } from "firebase/firestore";
-import { firestoreStatus, sampleData } from "$lib/store";
-import { FirebaseError } from "firebase/app";
+import { db } from "./client";
 import {
+  addDoc,
   collection,
+  doc,
+  getDoc,
   getDocs,
-  getFirestore,
   query,
-} from "firebase/firestore/lite";
-import { safe_not_equal } from "svelte/internal";
+  Timestamp,
+} from "firebase/firestore";
 
-const TARGET_COLLECTION_NAME = "recruit";
+const recruit = "recruit";
 
 async function getStatus() {
   type StatusData = {
@@ -43,8 +42,7 @@ type RecruitData = {
 };
 
 async function getRecruitData() {
-  const db = getFirestore(app);
-  const q = query(collection(db, TARGET_COLLECTION_NAME));
+  const q = query(collection(db, recruit));
   const querySnapshot = await getDocs(q);
   const ret: RecruitData[] = [];
   querySnapshot.forEach((doc) => {
@@ -54,5 +52,15 @@ async function getRecruitData() {
   return ret;
 }
 
-export { getStatus, getRecruitData };
+async function addRecruitData(data: RecruitData) {
+  try {
+    const docRef = collection(db, "recruit");
+    await addDoc(docRef, data);
+    console.log("Document written with ID: ", docRef.id);
+  } catch (e) {
+    console.error("Error adding document: ", e);
+  }
+}
+
+export { getStatus, getRecruitData, addRecruitData };
 export type { RecruitData };
