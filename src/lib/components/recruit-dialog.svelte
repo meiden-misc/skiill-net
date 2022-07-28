@@ -16,7 +16,7 @@
     type RecruitData,
   } from "../../firebase/db_repository";
   import { DateInput, localeFromDateFnsLocale } from "date-picker-svelte";
-  import { ja } from "date-fns/locale";
+  import ja from "date-fns/locale/ja/index.js";
 
   export let dialogOpen = false;
   export const response = "";
