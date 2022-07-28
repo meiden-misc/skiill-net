@@ -33,6 +33,8 @@
 		"@smui/top-app-bar": "^6.0.0-beta.16",
 		"@sveltejs/adapter-static": "^1.0.0-next.34",
 		"@sveltejs/kit": "next",
+		"date-fns": "^2.29.1",
+		"date-picker-svelte": "^2.0.0",
 		"prettier": "^2.7.0",
 		"prettier-plugin-svelte": "^2.7.0",
 		"smui-theme": "^6.0.0-beta.16",

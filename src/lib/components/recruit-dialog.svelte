@@ -15,19 +15,23 @@
     addRecruitData,
     type RecruitData,
   } from "../../firebase/db_repository";
+  import { DateInput, localeFromDateFnsLocale } from "date-picker-svelte";
+  import { ja } from "date-fns/locale";
 
   export let dialogOpen = false;
   export const response = "";
   let title = "";
   let place = "";
-  let deadTime = Timestamp.now();
-  let beginTime = Timestamp.now();
-  let endTime = Timestamp.now();
+  let deadTime = new Date();
+  let beginTime = new Date();
+  let endTime = new Date();
   let issuer = "";
   let recruitmentNum = 1;
   let recruitmentStatus = "wait";
   let requirements = "";
   let detail = "";
+
+  let locale = localeFromDateFnsLocale(ja);
 
   async function callbackDialog() {
     let data: RecruitData = {
@@ -39,9 +43,9 @@
       media4: "",
       media5: "",
       place: place,
-      deadline: deadTime,
-      beginTime: beginTime,
-      endTime: endTime,
+      deadline: Timestamp.fromDate(deadTime),
+      beginTime: Timestamp.fromDate(beginTime),
+      endTime: Timestamp.fromDate(endTime),
       issuer: issuer,
       recruitmentNum: recruitmentNum,
       recruitStatus: recruitmentStatus,
@@ -97,6 +101,9 @@
         >
       </Textfield>
     </div>
+    <div class="time">
+      <DateInput bind:value={endTime} {locale} />
+    </div>
     <div class="place">
       <Textfield
         label="募集場所"
@@ -135,7 +142,21 @@
 </Dialog>
 
 <style>
+  .detail {
+    padding-bottom: 50px;
+  }
+  .time {
+    padding: 40px;
+  }
   .title {
     width: 100%;
+  }
+  :root {
+    --date-picker-foreground: var(--m3-primary);
+    --date-picker-background: var(--m3-background);
+    --date-picker-highlight-border: var(--m3-primary);
+    --date-picker-highlight-shadow: var();
+    --date-picker-selected-color: var(--m3-primary);
+    --date-picker-selected-background: var(--m3-primary-container);
   }
 </style>
