@@ -1,6 +1,6 @@
 <script lang="ts">
   import Button, { Icon, Label } from "@smui/button";
-  import { firestoreStatus, isLoading, sampleData } from "$lib/store";
+  import { firestoreStatus, isLoading } from "$lib/store";
   import { onMount } from "svelte";
 
   onMount(() => {
@@ -76,7 +76,6 @@
   <Button variant="raised">
     <Label>ステータスを取得</Label>
   </Button>
-  <p>{$sampleData}</p>
 </div>
 
 <style>

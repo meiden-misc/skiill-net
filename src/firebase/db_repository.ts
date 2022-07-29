@@ -2,18 +2,20 @@ import { db } from "./client";
 import {
   addDoc,
   collection,
+  deleteDoc,
   doc,
   getDoc,
   getDocs,
   query,
   Timestamp,
 } from "firebase/firestore";
+import { recruitDataSnap, recruitIdSnap } from "$lib/store";
 
 const recruit = "recruit";
 
 async function getStatus() {
   type StatusData = {
-    statusStr: String;
+    statusStr: string;
   };
 
   const docRef = doc(db, "status", "status");
@@ -23,33 +25,37 @@ async function getStatus() {
   return status;
 }
 type RecruitData = {
-  title: String;
-  thumbnail: String;
-  media1: String;
-  media2: String;
-  media3: String;
-  media4: String;
-  media5: String;
-  place: String;
+  title: string;
+  thumbnail: string;
+  media1: string;
+  media2: string;
+  media3: string;
+  media4: string;
+  media5: string;
+  place: string;
   deadline: Timestamp;
   beginTime: Timestamp;
   endTime: Timestamp;
-  issuer: String;
+  issuer: string;
   recruitmentNum: number;
-  recruitStatus: String;
-  requirements: String;
-  detail: String;
+  recruitStatus: string;
+  requirements: string;
+  detail: string;
 };
 
-async function getRecruitData() {
+async function getRecruitData(): Promise<void> {
   const q = query(collection(db, recruit));
   const querySnapshot = await getDocs(q);
-  const ret: RecruitData[] = [];
+  const docData: RecruitData[] = [];
+  const docId: string[] = [];
   querySnapshot.forEach((doc) => {
-    ret.push(doc.data() as RecruitData);
+    docData.push(doc.data() as RecruitData);
+    docId.push(doc.id);
   });
-  console.log(ret);
-  return ret;
+  console.log(docData);
+  console.log(docId);
+  recruitDataSnap.set(docData);
+  recruitIdSnap.set(docId);
 }
 
 async function addRecruitData(data: RecruitData) {
@@ -60,7 +66,17 @@ async function addRecruitData(data: RecruitData) {
   } catch (e) {
     console.error("Error adding document: ", e);
   }
+  getRecruitData();
 }
 
-export { getStatus, getRecruitData, addRecruitData };
+async function deleteRecruitData(docId: string) {
+  if (docId != "sample") {
+    await deleteDoc(doc(db, recruit, docId));
+  } else {
+    console.log("no!");
+  }
+  getRecruitData();
+}
+
+export { getStatus, getRecruitData, addRecruitData, deleteRecruitData };
 export type { RecruitData };
