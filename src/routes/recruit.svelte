@@ -1,8 +1,14 @@
 <script lang="ts">
-  import { firestoreStatus, isLoading, sampleData } from "$lib/store";
+  import {
+    firestoreStatus,
+    isLoading,
+    recruitDataSnap,
+    recruitIdSnap,
+  } from "$lib/store";
   import {
     getStatus,
     getRecruitData,
+    deleteRecruitData,
     type RecruitData,
   } from "../firebase/db_repository";
   import { onMount } from "svelte";
@@ -22,38 +28,37 @@
   import RecruitDialog from "$lib/components/recruit-dialog.svelte";
 
   let dialogOpen = false;
-  let recruitDataSnap: RecruitData[];
-  let recruitDataSnapLength: number = 0;
   let statusSnap: String = "ボタンをクリックしてFireStoreからフェッチ";
 
   onMount(() => {
-    getRecruitDataSnap();
+    getRecruitData().then((_) => isLoading.set(false));
     console.log("hey");
   });
 
-  function getRecruitDataSnap() {
-    getStatus().then((value) => {
-      statusSnap = value.statusStr;
-      getRecruitData().then((value) => {
-        recruitDataSnap = value;
-        recruitDataSnapLength = value.length;
-        isLoading.set(false);
-      });
-    });
-  }
+  // function getRecruitDataSnap() {
+  //   getStatus().then((value) => {
+  //     statusSnap = value.statusStr;
+  //     getRecruitData().then((value) => {
+  //       recruitDataSnap = value;
+  //       recruitDataSnapLength = value.length;
+  //       isLoading.set(false);
+  //     });
+  //   });
+  // }
 </script>
 
 <div class="wide_title">
   <h3>求人！</h3>
 </div>
 <div class="main">
-  <Button on:click={getRecruitDataSnap} variant="raised">
+  <Button on:click={getRecruitData} variant="raised">
     <Label>データベースのフェッチ</Label>
   </Button>
   <p>{statusSnap}</p>
-  <p>{JSON.stringify(recruitDataSnap)}</p>
+  <p>{JSON.stringify($recruitDataSnap)}</p>
+  <p>{$recruitIdSnap}</p>
   <LayoutGrid>
-    {#each Array(recruitDataSnapLength) as _unused, i}
+    {#each Array($recruitDataSnap.length) as _unused, i}
       <Cell>
         <div class="card-container">
           <Card>
@@ -61,17 +66,17 @@
               <Media
                 class="card-media-16x9"
                 aspectRatio="16x9"
-                style="background-image: url({recruitDataSnap[i].thumbnail});"
+                style="background-image: url({$recruitDataSnap[i].thumbnail});"
               />
               <Content class="mdc-typography--body2">
-                <p style="margin: 0;">{recruitDataSnap[i].title}</p>
+                <p style="margin: 0;">{$recruitDataSnap[i].title}</p>
                 <h3
                   class="mdc-typography--subtitle2"
                   style="margin: 0 0 10px; color: #888;"
                 >
-                  {recruitDataSnap[i].issuer}
+                  {$recruitDataSnap[i].issuer}
                 </h3>
-                {recruitDataSnap[i].detail}
+                {$recruitDataSnap[i].detail}
               </Content>
             </PrimaryAction>
             <Actions>
@@ -97,8 +102,8 @@
                 >
                 <IconButton
                   class="material-icons"
-                  on:click={() => null}
-                  title="More options">more_vert</IconButton
+                  on:click={() => deleteRecruitData($recruitIdSnap[i])}
+                  title="More options">delete</IconButton
                 >
               </ActionIcons>
             </Actions>
