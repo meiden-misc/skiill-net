@@ -1,0 +1,7 @@
+const ENV = import.meta.env;
+
+export const ENVS = {
+  OAUTH_URL: ENV.VITE_OAUTH_URL,
+  CLIENT_ID: ENV.VITE_CLIENT_ID,
+  REDIRECT_URL: ENV.VITE_REDIRECT_URL,
+};

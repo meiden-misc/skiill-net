@@ -25,12 +25,12 @@
   } from "@smui/drawer";
   import List, { Item, Text, Graphic, Separator, Subheader } from "@smui/list";
   import { ThemeManager } from "../theme/theme";
-  import { currentPath, PathId, isLoading } from "$lib/store";
+  import { currentPath, PathId, isLoading } from "$lib/model/store";
   import { goto } from "$app/navigation";
   import { onMount } from "svelte";
-  import PageTransition from "$lib/page-transition.svelte";
+  import PageTransition from "$lib/components/page-transition.svelte";
   import LinearProgress from "@smui/linear-progress";
-  import { isLandscape } from "$lib/device";
+  import { isLandscape } from "$lib/model/device";
   import Splash from "$lib/components/splash.svelte";
 
   export let pathname = "";
@@ -40,26 +40,34 @@
   let topAppBar: TopAppBarComponentDev;
   let theme = new ThemeManager();
   let isLightModeStr = theme.isLight ? "Dark" : "Light";
-  let isAppLoading = false;
+  let hasAppMounted = false;
 
   onMount(() => {
-    open = isLandscape();
-    isAppLoading = true;
-    isLandscapeSnap = isLandscape();
+    hasAppMounted = true;
+    updateSize();
     currentPath.set(new URL(location.href).pathname);
     console.log(new URL(location.href).pathname);
+
+    // callback windows width event
+    window.addEventListener("resize", updateSize);
   });
 
+  function updateSize(): void {
+    isLandscapeSnap = isLandscape();
+    open = isLandscape();
+  }
+
   async function setActive(route: string) {
-    isLoading.set(true);
-    currentPath.set(route);
-    open = !isLandscapeSnap ? false : true;
-    await new Promise((resolve) => setTimeout(resolve, 1500)); // for debugging
-    goto(route);
+    open = isLandscapeSnap;
+    if (route !== $currentPath && !$isLoading) {
+      isLoading.set(true);
+      currentPath.set(route);
+      goto(route);
+    }
   }
 </script>
 
-{#if isAppLoading}
+{#if hasAppMounted}
   <TopAppBar bind:this={topAppBar} variant="fixed">
     <Row>
       <Section>
@@ -165,7 +173,9 @@
       <AppContent class="app-content">
         <main class="main-content">
           <PageTransition {pathname}>
-            <slot />
+            <div class="cover">
+              <slot />
+            </div>
           </PageTransition>
         </main>
       </AppContent>
@@ -176,6 +186,10 @@
 {/if}
 
 <style lang="scss">
+  .cover {
+    height: calc(var(--vh, 1vh) * 90);
+  }
+
   .test {
     padding: 20px;
     margin-bottom: 65px;
@@ -203,5 +217,11 @@
   .progress-mobile {
     margin-top: -5.5px;
     min-height: 4px;
+  }
+
+  .drawer-container {
+    position: relative;
+    display: flex;
+    height: calc(var(--vh, 1vh) * 93);
   }
 </style>

@@ -1,6 +1,6 @@
 <script lang="ts">
   import Button, { Icon, Label } from "@smui/button";
-  import { firestoreStatus, isLoading } from "$lib/store";
+  import { firestoreStatus, isLoading } from "$lib/model/store";
   import { onMount } from "svelte";
 
   onMount(() => {

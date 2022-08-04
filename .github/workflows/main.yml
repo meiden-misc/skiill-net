@@ -8,6 +8,9 @@ on:
     types: [opened, synchronize, reopened]
   workflow_dispatch:
 
+env:
+  VITE_INTERNAL: true
+
 jobs:
   build:
     runs-on: ubuntu-latest

@@ -14,6 +14,7 @@
         "sveltekit",
         "textfield",
         "truetype",
-        "vercel"
+        "vercel",
+        "VITE"
     ]
 }

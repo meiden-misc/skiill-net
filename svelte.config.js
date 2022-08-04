@@ -6,7 +6,6 @@ export default {
 
   kit: {
     adapter: adapter({
-      // default options are shown
       pages: "build",
       assets: "build",
       fallback: "index.html",
@@ -17,5 +16,9 @@ export default {
       // This can be false if you're using a fallback (i.e. SPA mode)
       default: true,
     },
+
+    // paths: {
+    //   base: "/250026",
+    // },
   },
 };

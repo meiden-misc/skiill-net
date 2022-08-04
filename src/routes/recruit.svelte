@@ -4,13 +4,13 @@
     isLoading,
     recruitDataSnap,
     recruitIdSnap,
-  } from "$lib/store";
+  } from "$lib/model/store";
   import {
     getStatus,
     getRecruitData,
     deleteRecruitData,
     type RecruitData,
-  } from "../firebase/db_repository";
+  } from "$lib/firebase/db_repository";
   import { onMount } from "svelte";
   import Card, {
     Content,
@@ -34,17 +34,6 @@
     getRecruitData().then((_) => isLoading.set(false));
     console.log("hey");
   });
-
-  // function getRecruitDataSnap() {
-  //   getStatus().then((value) => {
-  //     statusSnap = value.statusStr;
-  //     getRecruitData().then((value) => {
-  //       recruitDataSnap = value;
-  //       recruitDataSnapLength = value.length;
-  //       isLoading.set(false);
-  //     });
-  //   });
-  // }
 </script>
 
 <div class="wide_title">
@@ -55,8 +44,6 @@
     <Label>データベースのフェッチ</Label>
   </Button>
   <p>{statusSnap}</p>
-  <p>{JSON.stringify($recruitDataSnap)}</p>
-  <p>{$recruitIdSnap}</p>
   <LayoutGrid>
     {#each Array($recruitDataSnap.length) as _unused, i}
       <Cell>
