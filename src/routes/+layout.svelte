@@ -1,10 +1,3 @@
-<script context="module" lang="ts">
-    /** @type {import('@sveltejs/kit').Load} */
-    export const load = async ({ url: { pathname } }) => ({
-        props: { pathname },
-    });
-</script>
-
 <script lang="ts">
     import type { TopAppBarComponentDev } from "@smui/top-app-bar";
     import Button, { Label } from "@smui/button";
@@ -38,8 +31,9 @@
     import LinearProgress from "@smui/linear-progress";
     import { isLandscape } from "$lib/model/device";
     import Splash from "$lib/components/splash.svelte";
+    import type { PageData } from "./$types";
 
-    export let pathname = "";
+    export let data: PageData;
 
     let open = false;
     let isLandscapeSnap = false;
@@ -183,7 +177,7 @@
             {/if}
             <AppContent class="app-content">
                 <main class="main-content">
-                    <PageTransition {pathname}>
+                    <PageTransition {data}>
                         <div class="cover">
                             <slot />
                         </div>
