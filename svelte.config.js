@@ -12,11 +12,6 @@ export default {
       precompress: true,
     }),
 
-    prerender: {
-      // This can be false if you're using a fallback (i.e. SPA mode)
-      default: true,
-    },
-
     // paths: {
     //   base: "/250026",
     // },
