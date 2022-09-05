@@ -1,4 +1,3 @@
-import type { TopAppBarComponentDev } from "@smui/top-app-bar";
 import { Timestamp } from "firebase/firestore";
 import type { RecruitData } from "$lib/firebase/db_repository";
 import { writable } from "svelte/store";
