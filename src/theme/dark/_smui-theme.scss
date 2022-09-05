@@ -3,13 +3,12 @@
 @use "@material/theme/color-palette";
 
 // Svelte Colors! (Dark Theme)
-@use "@material/theme/index" as theme with (
-  $primary: #b9c3ff,
+@use "@material/theme/index" as theme with ($primary: #1b84a5,
   $secondary: #c4c5dd,
   $surface: #1b1b1b,
-  $background: #2d2f42,
-  $error: #ffb4a9
-);
+  /*文*/
+  $background: #1A1A1A,
+  $error: #ffb4a9);
 
 @use "../app";
 
@@ -22,6 +21,7 @@ body {
 a {
   color: #40b3ff;
 }
+
 a:visited {
   color: color.scale(#40b3ff, $lightness: -35%);
 }
