@@ -1,7 +1,7 @@
 :root {
   --m3-back: #88D8F2;
 
-  --m3-primary: #1ca917;
+  --m3-primary: #3fbfe6;
   --m3-on-primary: #ff0000;
   --m3-primary-container: #dde0ff;
   --m3-on-primary-container: #ffffff;
@@ -21,7 +21,7 @@
   --m3-surface: #fefbff;
   --m3-on-surface: #1b1b1f;
   --m3-inverse-surface: #303034;
-  --m3-inverse-on-surface: #f3f0f5;
+  --m3-inverse-on-surface: #88D8F2;
   --m3-inverse-primary: #4FB7D8;
   --m3-surface-variant: #e3e1ec;
   --m3-on-surface-variant: #46464f;

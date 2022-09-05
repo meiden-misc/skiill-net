@@ -2,6 +2,7 @@ h3 {
   font-weight: 800;
   color: var(--m3-on-primary-container);
 }
+
 .wide_title {
   padding: 30px;
   text-align: center;
@@ -14,10 +15,10 @@ h3 {
 }
 
 .mdc-drawer {
-  background-color: var(--m3-back);
+  background-color: var(--m3-inverse-on-surface);
 }
 
-.mdc-drawer--modal + .mdc-drawer-scrim {
+.mdc-drawer--modal+.mdc-drawer-scrim {
   background-color: rgba(0, 0, 0, 0.32);
 }
 
@@ -35,4 +36,8 @@ h3 {
 
 .mdc-text-field__input {
   margin-left: 10px;
+}
+
+.mdc-drawer .mdc-deprecated-list-item--activated {
+  color: var(--m3-inverse-surface);
 }
